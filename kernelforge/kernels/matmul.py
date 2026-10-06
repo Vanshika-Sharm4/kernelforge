@@ -46,7 +46,9 @@ def _configs() -> list[triton.Config]:
     ]
 
 
-@triton.autotune(configs=_configs(), key=["M", "N", "K"])
+# Key on a power-of-two bucket of M, not on M itself. Without a KV cache, M changes at every decode
+# step; keying on exact M would re-run the whole autotune search (all configs) at every new length.
+@triton.autotune(configs=_configs(), key=["M_BUCKET", "N", "K"])
 @triton.jit
 def _matmul_kernel(
     a_ptr,
@@ -57,6 +59,7 @@ def _matmul_kernel(
     M,
     N,
     K,
+    M_BUCKET,
     stride_am,
     stride_ak,
     stride_bk,
@@ -140,6 +143,7 @@ def _launch(a, b, bias, activation, scale):
         m,
         n,
         k,
+        triton.next_power_of_2(m),
         a2.stride(0),
         a2.stride(1),
         b.stride(0),
