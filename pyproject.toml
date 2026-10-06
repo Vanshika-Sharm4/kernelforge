@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kernelforge"
+version = "0.1.0"
+description = "LLM inference bring-up and GPU kernel optimization with Triton"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["torch>=2.1", "triton>=2.1", "numpy", "pandas", "matplotlib"]
+
+[project.optional-dependencies]
+hf = ["transformers>=4.36"]
+dev = ["pytest", "transformers>=4.36"]
+
+[tool.setuptools.packages.find]
+include = ["kernelforge*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests", "."]
+markers = ["hf: needs Hugging Face weights (downloads gpt2); run with -m hf"]
+addopts = "-m 'not hf'"
