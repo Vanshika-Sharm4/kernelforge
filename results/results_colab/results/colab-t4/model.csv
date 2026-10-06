@@ -1,0 +1,16 @@
+backend,int8,kv_cache,batch,prompt_len,new_tokens,prefill_ms,decode_ms_per_token,decode_tokens_per_s,weight_bw_gbps,peak_mem_gb
+torch,False,True,1,128,64,9.748,8.7852,113.8,28.3,0.28
+torch,False,True,4,128,64,10.439,8.7988,454.6,28.3,0.31
+torch,False,True,16,128,64,30.055,12.186,1313.0,20.4,0.43
+torch,False,False,1,128,64,0.0,8.5318,117.2,29.2,0.27
+torch,False,False,4,128,64,0.0,12.9006,310.1,19.3,0.29
+triton,False,True,1,128,64,15.385,12.668,78.9,19.6,0.27
+triton,False,True,4,128,64,59.304,13.0378,306.8,19.1,0.3
+triton,False,True,16,128,64,265.151,12.6901,1260.8,19.6,0.41
+triton,False,False,1,128,64,0.0,24.294,41.2,10.2,0.27
+triton,False,False,4,128,64,0.0,88.8472,45.0,2.8,0.28
+triton,True,True,1,128,64,16.338,13.3229,75.1,12.3,0.19
+triton,True,True,4,128,64,65.484,12.85,311.3,12.8,0.22
+triton,True,True,16,128,64,283.383,13.479,1187.0,12.2,0.33
+triton,True,False,1,128,64,0.0,24.7411,40.4,6.6,0.18
+triton,True,False,4,128,64,0.0,95.754,41.8,1.7,0.19
